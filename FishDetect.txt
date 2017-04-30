@@ -1,0 +1,4 @@
+https://www.kaggle.com/jeffd23/the-nature-conservancy-fisheries-monitoring/deep-learning-in-the-deep-blue-lb-1-279
+
+
+https://www.kaggle.com/shreemoyeesarkar/the-nature-conservancy-fisheries-monitoring/fishy-keras-lb-1-25267/code

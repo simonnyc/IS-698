@@ -1,0 +1,77 @@
+docker run -it -p 8888:8888 -p 6006:6006 -v /c/Users/Simon:/root/sharedfolder floydhub/dl-docker:cpu bash
+
+pip install sortedcontainers 
+
+pip install requests
+
+pip install python-resize-image
+
+pip install tqdm 
+
+pip install seaborn 
+
+pip install --upgrade numpy 
+
+pip install -U scikit-learn
+
+sudo apt-get install python-opencv
+
+
+###########################
+cd ..
+mkdir DATA
+cd DATA
+
+mkdir TRAIN
+cd TRAIN
+mkdir ALB
+cp /root/sharedfolder/train/ALB/*.jpg  /DATA/TRAIN/ALB/
+
+ mkdir BET
+ cp /root/sharedfolder/train/BET/*.jpg  /DATA/TRAIN/BET/
+ 
+mkdir DOL
+cp /root/sharedfolder/train/DOL/*.jpg  /DATA/TRAIN/DOL/
+
+mkdir LAG
+cp /root/sharedfolder/train/LAG/*.jpg  /DATA/TRAIN/LAG/
+
+mkdir Nof
+cp /root/sharedfolder/train/Nof/*.jpg  /DATA/TRAIN/Nof/
+
+mkdir OTHER
+cp /root/sharedfolder/train/OTHER/*.jpg  /DATA/TRAIN/OTHER/
+
+mkdir SHARK
+cp /root/sharedfolder/train/SHARK/*.jpg  /DATA/TRAIN/SHARK/
+
+mkdir YFT
+cp /root/sharedfolder/train/YFT/*.jpg  /DATA/TRAIN/YFT/
+
+
+mkdir /DATA/TEST
+cp /root/sharedfolder/test_stg1/*.jpg  /DATA/TEST/
+
+
+##
+jupyter notebook
+
+http://192.168.99.100:8888
+###########################
+ mkdir ALB
+
+cp /DATA/BET/*.jpg  /CAPSTONE/FISH/TRAIN/ALB/
+ mkdir BET
+ cp /DATA/BET/*.jpg  /CAPSTONE/FISH/TRAIN/BET/
+ mkdir DOL
+ cp /DATA/DOL/*.jpg  /CAPSTONE/FISH/TRAIN/DOL/
+ mkdir LAG
+ cp /DATA/LAG/*.jpg  /CAPSTONE/FISH/TRAIN/LAG/
+ mkdir Nof
+ cp /DATA/Nof/*.jpg  /CAPSTONE/FISH/TRAIN/Nof/
+ mkdir OTHER
+ cp /DATA/OTHER/*.jpg  /CAPSTONE/FISH/TRAIN/OTHER/
+ mkdir SHARK
+ cp /DATA/SHARK/*.jpg  /CAPSTONE/FISH/TRAIN/SHARK/
+ mkdir YFT
+ cp /DATA/YFT/*.jpg  /CAPSTONE/FISH/TRAIN/YFT/
