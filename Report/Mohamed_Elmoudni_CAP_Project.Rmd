@@ -1,0 +1,194 @@
+---
+title: "DATA-698 Capstone Project, Spring 2017"
+author:
+- Mohamed Elmoudni
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
+---
+
+
+
+\begin{center}
+Abstract
+\end{center}
+
+
+
+The Nature Conservancy, an environmental non-profit, is working with several Pacific Island nations and a big tuna fishing company to more easily count and identify fish caught at sea using cutting edge technology. The goal is to use deep learning to help fishermen reduce the number of protected animals like species of sharks and tunas that are accidentally caught along with the tuna. The Nature Conservancy hopes that the program could prevent overfishing and help threatened and endangered sea life recover without putting fishermen out of work. 
+The Nature Conservancy has installed nearly a dozen boats with electronic monitoring systems that include a set of cameras, sensors, and GPS devices. The system can record most of what takes place on board to prove that the operators did nothing illegal and to back up any compliance data that they must present to officials when they deliver their catch. 
+
+
+## Background
+
+Nearly half of the world depends on seafood for their main source of protein. In the Western and Central Pacific, where 60% of the world's tuna is caught, illegal, unreported, and unregulated fishing practices are threatening marine ecosystems, global seafood supplies and local livelihoods. The Nature Conservancy is working with local, regional and global partners to preserve this fishery for the future. 
+
+The Nature Conservancy pioneers new technology and data analytics solutions to collect baseline scientific data on fishery health, monitor fleet compliance with fishery regulations and deliver "bait to plate" traceability to seafood suppliers and consumers. In WCPO longline tuna fisheries, the Conservancy is deploying electronic monitoring systems on longline vessels to improve scientific data collection and reduce poaching.
+
+
+
+## Project Overview
+
+In this project, we will be training a deep learning model to automatically detect and classify species of tunas, sharks and more that fishing boats catch, which will accelerate the recording review process. The approach is to have an algorithm embedded into a fully automated software tool that workers could use in their fishing operations. The algorithm will help fishermen detect which species of fish appears on a fishing boat, based on images captured from boat cameras of various angles.  
+
+
+## Approach 
+
+In this project, we are going to train a machine learning model to predict the likelihood of fish species in each picture. Eight target categories are available in this dataset: Albacore tuna, Bigeye tuna, Yellowfin tuna, Mahi Mahi, Opah, Sharks, Other (meaning that there are fish present but not in the above categories), and No Fish (meaning that no fish is in the picture). Each image has only one fish category, except that there are sometimes very small fish in the pictures that are used as bait.
+We'll first create a synthetic dataset and use that to train our model. We'll then validate the model synthetic test data. We will create multiple models using grid search for epochs, batch size, and optimizer. 
+
+
+## Data Acquisition 
+
+The dataset was compiled by The Nature Conservancy in partnership with Satlink, Archipelago Marine Research, the Pacific Community, the Solomon Islands Ministry of Fisheries and Marine Resources, the Australia Fisheries Management Authority, and the governments of New Caledonia and Palau.
+
+The train and test datasets is downloaded locally from Kaggle website. Then, the data is uploaded into Docker container. The train data is then loaded into the /DATA/TRAIN/ folder.  It will be stored accordingly: 
+
+Albacore tuna: /DATA/TRAIN/ALB/  \newline
+Bigeye tuna:/DATA/TRAIN/BET/  \newline
+Mahi Mahi:/DATA/TRAIN/DOL/  \newline
+Opah: /DATA/TRAIN/LAG/  \newline
+Sharks: /DATA/TRAIN/SHARK/  \newline
+Yellowfin tuna: /DATA/TRAIN/YFT/  \newline
+Other fish than the above: /DATA/TRAIN/OTHER/  \newline
+No fish in the picture: /DATA/TRAIN/Nof/  \newline
+
+The test data is loaded in /DATA/TEST/  \newline
+
+**** Please refer to the dataload.txt script in the documentation.  
+![](C:\CUNY\Courses\IS-698\Capstone_Project\species-ref-key.jpg) 
+
+
+
+\newpage 
+
+## Data Exploration
+
+Below is a sample pictures of the fish data that was caught in the boats. In addition, a fish photo count and type is also depicted below. 
+
+![](C:\CUNY\Courses\IS-698\Capstone_Project\fishtype03.png) 
+
+\newpage
+
+## Model creation
+
+I will be creating three Convolution Neural Network (CNN) models with different topologies and different hyper parameters.  In addition I will apply augmentation techniques on the best performing model. 
+\newline
+
+A base model (model One) will have two convolution layers with the following major CNN components: \newline
+1- Convolutional layer with 60 feature maps of size 5x5.\newline
+2- Pooling layer taking the max over 2x2 patches.\newline
+3- Convolutional layer with 12 feature maps of size 3x3.\newline
+4- Pooling layer taking the max over 2x2 patches.\newline
+5- Dropout layer with a probability of 50%.\newline
+6- Flatten layer.\newline
+7- Fully connected layer with 128 neurons and rectifier activation.\newline
+8- Dropout layer with a probability of 50%.\newline
+9- Fully connected layer with 50 neurons and rectifier activation.\newline
+10- Dropout layer with a probability of 50%.\newline
+11- Output layer.\newline
+\newline
+A second CNN model called model Two , with three convolution layers with the following major CNN components:\newline
+1- Convolutional layer with 16 feature maps of size 5x5.\newline
+2- Pooling layer taking the max over 2x2 patches.\newline
+3- Convolutional layer with 32 feature maps of size 3x3.\newline
+4- Pooling layer taking the max over 2x2 patches.\newline
+5- Convolutional layer with 64 feature maps of size 3x3.\newline
+6- Pooling layer taking the max over 2x2 patches.\newline
+7- Dropout layer with a probability of 50%.\newline
+8- Flatten layer.\newline
+9- Fully connected layer with 64 neurons and rectifier activation.\newline
+10- Dropout layer with a probability of 50%.\newline
+11- Fully connected layer with 64 neurons and rectifier activation.\newline
+12- Dropout layer with a probability of 50%.\newline
+13- Output layer.\newline
+\newline
+A third CNN model called model Three, with three convolution layers with the following major CNN components:\newline
+1- Convolutional layer with 32 feature maps of size 5x5.\newline
+2- Pooling layer taking the max over 2x2 patches.\newline
+3- Convolutional layer with 64 feature maps of size 3x3.\newline
+4- Pooling layer taking the max over 2x2 patches.\newline
+5- Convolutional layer with 128 feature maps of size 3x3.\newline
+6- Pooling layer taking the max over 2x2 patches.\newline
+7- Dropout layer with a probability of 50%.\newline
+8- Flatten layer.\newline
+9- Fully connected layer with 128 neurons and rectifier activation.\newline
+10- Dropout layer with a probability of 50%.\newline
+11- Fully connected layer with 128 neurons and rectifier activation.\newline
+12- Dropout layer with a probability of 50%.\newline
+13- Output layer.\newline
+
+
+## Model Selection
+
+  a. Model comparaison and tuning strategy
+  
+  To improve the algorithm the best performing model, I will be tuning the below areas by Grid-Searching the hyper parameters when applicable: \newline
+  \newline
+1- Network Topology: I will be changing the network topology by using different number of layers and neurons. \newline
+  \newline
+2- Learning Rate: I will experiment with very small learning rates and large rates. I will try adding momentum term; then change the learning rate. \newline
+  \newline
+3- Activation Functions: I will be experimenting using the different activation function sigmoid,tanh, relu, then a softmax, linear or sigmoid on the output layer.  \newline
+  \newline
+4- Batches and Epochs: The batch size defines the gradient and how often to update weights. An epoch is the entire training data exposed to the network, batch-by-batch. I will be experimenting running small batch sizes with large epoch size. \newline
+  \newline
+5- Regularization: regularization is a great approach to curb overfitting the training data. I will be using the dropout regularization technique. Dropout randomly skips neurons during training, forcing others in the layer to pick up the slack. I will be experimenting with dropout in the input, hidden, and output layers. \newline
+  \newline
+6- Optimization and Loss: There are many optimization methods that offer more parameters, more complexity and faster convergence. However, for our classification problem, we will be mainly experimenting with the followings: adam and RMSprop \newline
+
+Based on the above tuning strategy, the model with the best performance is model One with the following characteristics: \newline
+
+
+\newpage 
+
+## Models Results
+Below are the accuracy and loss for all three models. Each model has the accuracy and loss based 32 epochs.
+
+![Model One Accuracy ](C:\CUNY\Courses\IS-698\Capstone_Project\Report\accuracy1.png) \newline
+\newline
+![Model One Loss](C:\CUNY\Courses\IS-698\Capstone_Project\Report\loss1.png) 
+
+\newpage
+![Model Two Accuracy ](C:\CUNY\Courses\IS-698\Capstone_Project\Report\accuracy2.png) \newline 
+\newline
+![Model Two Loss](C:\CUNY\Courses\IS-698\Capstone_Project\Report\loss2.png) 
+
+\newpage 
+![Model Three Accuracy ](C:\CUNY\Courses\IS-698\Capstone_Project\Report\accuracy3.png) \newline 
+\newline
+![Model Three Loss](C:\CUNY\Courses\IS-698\Capstone_Project\Report\loss3.png) 
+
+\newpage
+
+## Model Comparaison
+From the below model accuracy performance figure, we clearly see that model Three has outperformed the other two models.  In addition it has lower loss value of 3.17% unlike model One and Two which have an error loss of 3.31% and 8.99% respectively.  Model Three strength was based on robust topology of three layers and maximum  nodes of 128 nodes , optimizer function RMS prop that utilizes the magnitude of recent gradients to normalize the gradients. As it always keep a moving average over the root mean squared (hence Rms) gradients, by whichit divides the current gradient, and learning rate of 0.0001. 
+
+
+![Model Accuracy Performance](C:\CUNY\Courses\IS-698\Capstone_Project\Report\Accuracy.png) 
+
+\newpage
+
+
+
+
+
+
+
+## Prediction
+
+  a.	Prediction on test/unseen data
+  
+  
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+testResults = read.csv("C:/CUNY/Courses/IS-698/Capstone_Project/Report/test2.csv",sep = ",")
+library(knitr)
+kable(testResults, caption = 'Prediction on test data')
+
+```
+
+## Conlusion 
+ 
+
